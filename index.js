@@ -38,6 +38,16 @@ async function run() {
 
       res.json(result);
     });
+    app.get("/order/:email", async (req, res) => {
+      const email = req.params.email;
+      console.log("email", email);
+      const query = { userEmail: email };
+      const order = bookingCollection.find(query);
+      // console.log("order", order);
+      const result = await order.toArray();
+      console.log("result", result);
+      res.json(result);
+    });
 
     //POST API
     app.post("/services", async (req, res) => {
@@ -49,7 +59,8 @@ async function run() {
 
     app.post("/booking", async (req, res) => {
       const booking = req.body;
-      console.log(booking);
+      const result = await bookingCollection.insertOne(booking);
+      res.json(result);
     });
   } finally {
     // await client.close();
