@@ -40,12 +40,10 @@ async function run() {
     });
     app.get("/order/:email", async (req, res) => {
       const email = req.params.email;
-      console.log("email", email);
       const query = { userEmail: email };
       const order = bookingCollection.find(query);
       // console.log("order", order);
       const result = await order.toArray();
-      console.log("result", result);
       res.json(result);
     });
 
@@ -53,13 +51,21 @@ async function run() {
     app.post("/services", async (req, res) => {
       const service = req.body;
       const result = await serviceCollection.insertOne(service);
-      console.log(result);
       res.json(result);
     });
 
     app.post("/booking", async (req, res) => {
       const booking = req.body;
       const result = await bookingCollection.insertOne(booking);
+      res.json(result);
+    });
+    // DELETE API
+
+    app.delete("/deleteOrder/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await bookingCollection.deleteOne(query);
+      console.log(result);
       res.json(result);
     });
   } finally {
