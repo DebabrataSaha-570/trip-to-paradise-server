@@ -46,6 +46,11 @@ async function run() {
       const result = await order.toArray();
       res.json(result);
     });
+    app.get("/orders", async (req, res) => {
+      const cursor = bookingCollection.find({});
+      const result = await cursor.toArray();
+      res.json(result);
+    });
 
     //POST API
     app.post("/services", async (req, res) => {
@@ -59,6 +64,26 @@ async function run() {
       const result = await bookingCollection.insertOne(booking);
       res.json(result);
     });
+    //PUT API
+    app.put("/order/:id", async (req, res) => {
+      const id = req.params.id;
+      const body = req.body;
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          status: body.status,
+        },
+      };
+      const result = await bookingCollection.updateOne(
+        filter,
+        updateDoc,
+        options
+      );
+      console.log(result);
+      res.json(result);
+    });
+
     // DELETE API
 
     app.delete("/deleteOrder/:id", async (req, res) => {
