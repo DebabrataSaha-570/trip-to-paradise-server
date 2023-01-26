@@ -19,6 +19,6 @@ It is a website for booking people in many tour packages and manage them. I have
 - Express JS
 - MongoDB
 
-[Live Link](https://)
+[Live Link](https://trip-to-paradise-new.web.app/)
 
-You can see client side code in [Trip to paradise Client](https://)
+You can see client side code in [Trip to paradise Client](https://github.com/DebabrataSaha-570/trip-to-paradise-client)
